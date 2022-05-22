@@ -18,14 +18,13 @@ pipeline {
         }
 
         stage('Sonar Analysis'){
-            envionrment{
+            environment{
                 scannerHome = tool 'SonarQubeScanner'
             }
            steps{
                echo '-----Sonar-Analysis-Started-----'
                withSonarQube('SonarQube'){
                 sh "${scannerHome}/bin/sonar-scanner"
-
                }
                echo '-----Sonar-Analysis-Ends-----'
            
