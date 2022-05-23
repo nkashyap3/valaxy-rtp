@@ -27,9 +27,20 @@ pipeline {
                 sh "${scannerHome}/bin/sonar-scanner"
                }
                echo '-----Sonar-Analysis-Ends-----'
-           
            }
 
+        stage('Quality Gate Analysis'){
+              script{
+                echo '-----Quality-Gate-Analysis-Starts----'
+                timeout(time:1, unit: 'HOURS'){
+                def qg = waitForQualityGate()
+                if ( qg.status != 'OK'){
+                    error "Pipeline failed due to Quality Gates failure: ${qg.status}"
+                              }
+                }
+                echo '-----Quality-Gate-Analysis-Ends-----'
+              }
+           }
         }
     }
  }
