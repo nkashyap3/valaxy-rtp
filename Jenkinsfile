@@ -42,7 +42,6 @@ pipeline {
                 }
                 echo '-----Quality-Gate-Analysis-Ends-----'
               }
-            } 
            }
         }
     }
