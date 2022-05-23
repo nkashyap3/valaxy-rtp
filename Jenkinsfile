@@ -30,6 +30,7 @@ pipeline {
            }
 
         stage('Quality Gate Analysis'){
+            steps{
               script{
                 echo '-----Quality-Gate-Analysis-Starts----'
                 timeout(time:1, unit: 'HOURS'){
@@ -40,6 +41,7 @@ pipeline {
                 }
                 echo '-----Quality-Gate-Analysis-Ends-----'
               }
+            } 
            }
         }
     }
