@@ -51,8 +51,6 @@ pipeline {
                   echo '<--------------- Sonar Gate Analysis Ends  --------------->'
                 }
             }
-        } // end of Quality Gate Stage
-    
-
+        } 
     }
  }
