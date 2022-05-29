@@ -1,5 +1,5 @@
-def imageName = 'stalin.jfrog.io/default-docker-local/valaxy-rtp'
-def registry  = 'https://stalin.jfrog.io'
+def imageName = 'nkashyapjfrog.io/default-docker-local/valaxy-rtp'
+def registry  = 'https://nkashyap.jfrog.io'
 def app
 pipeline {
     agent {
@@ -51,7 +51,17 @@ pipeline {
                   echo '<--------------- Sonar Gate Analysis Ends  --------------->'
                 }
             }
-        }
+        }//Quality Gate Stage ENDS//
+
+        stage('Docker Build'){
+           steps{
+             script{
+               echo '-----Docker-Build-Started-----'
+               app = docker.build(imageName)
+               echo '-----Docker-Build-Ends-----'
+           }
+        }         
+      }//Docker Build Stage ENDS
 
     }
  }
