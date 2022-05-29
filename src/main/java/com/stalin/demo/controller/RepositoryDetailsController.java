@@ -37,7 +37,6 @@ public class RepositoryDetailsController {
 	@GetMapping("/trends")
 	public Map<String, String> getTwitterTrends(@RequestParam("placeid") String trendPlace, @RequestParam("count") String trendCount) {
 		String consumerKey = env.getProperty("CONSUMER_KEY");
-                System.out.println("This is for sonar testing");
 		String consumerSecret = env.getProperty("CONSUMER_SECRET");
 		String accessToken = env.getProperty("ACCESS_TOKEN");
 		String accessTokenSecret = env.getProperty("ACCESS_TOKEN_SECRET");
@@ -51,10 +50,11 @@ public class RepositoryDetailsController {
 		TwitterFactory tf = new TwitterFactory(cb.build());
 		System.out.println("Twitter Factory "+tf);
 		Twitter twitter = tf.getInstance();
-		System.out.println("Twitter "+twitter);
+		System.out.println("Twitter object "+twitter);
 		Map<String, String> trendDetails = new HashMap<String, String>();
 		try {
 			Trends trends = twitter.getPlaceTrends(Integer.parseInt(trendPlace));
+			System.out.println("After API call");
 			int count = 0;
 			for (Trend trend : trends.getTrends()) {
 				if (count < Integer.parseInt(trendCount)) {
@@ -63,11 +63,14 @@ public class RepositoryDetailsController {
 				}
 			}
 		} catch (TwitterException e) {
-            trendDetails.put("Error", e.toString());
-		}catch (Exception e) {
-            trendDetails.put("Error", e.toString());
-		}
+			trendDetails.put("test", "MyTweet");
+            //trendDetails.put("Twitter Exception", e.getMessage());
+			System.out.println("Twitter exception "+e.getMessage());
 
+		}catch (Exception e) {
+			trendDetails.put("test", "MyTweet");
+            System.out.println("Exception "+e.getMessage());
+		}
 		return trendDetails;
 	}
 

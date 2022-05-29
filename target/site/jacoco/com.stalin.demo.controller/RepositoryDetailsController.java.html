@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RepositoryDetailsController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo-workshop</a> &gt; <a href="index.source.html" class="el_package">com.stalin.demo.controller</a> &gt; <span class="el_source">RepositoryDetailsController.java</span></div><h1>RepositoryDetailsController.java</h1><pre class="source lang-java linenums">package com.stalin.demo.controller;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.kohsuke.github.GHRepositorySearchBuilder;
+import org.kohsuke.github.GitHub;
+import org.kohsuke.github.GitHubBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import twitter4j.Trend;
+import twitter4j.Trends;
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.conf.ConfigurationBuilder;
+
+@RestController
+<span class="nc" id="L25">public class RepositoryDetailsController {</span>
+
+    @Autowired
+    private Environment env;
+
+	@RequestMapping(&quot;/&quot;)
+	public String getRepos() throws IOException {
+<span class="nc" id="L32">		GitHub github = new GitHubBuilder().withPassword(&quot;stalin.lenin@gmail.com&quot;, &quot;XXXXXXXX&quot;).build();</span>
+<span class="nc" id="L33">		GHRepositorySearchBuilder builder = github.searchRepositories();</span>
+<span class="nc" id="L34">		return &quot;Greetings from Spring Boot!&quot;;</span>
+	}
+
+	@GetMapping(&quot;/trends&quot;)
+	public Map&lt;String, String&gt; getTwitterTrends(@RequestParam(&quot;placeid&quot;) String trendPlace, @RequestParam(&quot;count&quot;) String trendCount) {
+<span class="nc" id="L39">		String consumerKey = env.getProperty(&quot;CONSUMER_KEY&quot;);</span>
+<span class="nc" id="L40">		String consumerSecret = env.getProperty(&quot;CONSUMER_SECRET&quot;);</span>
+<span class="nc" id="L41">		String accessToken = env.getProperty(&quot;ACCESS_TOKEN&quot;);</span>
+<span class="nc" id="L42">		String accessTokenSecret = env.getProperty(&quot;ACCESS_TOKEN_SECRET&quot;);</span>
+<span class="nc" id="L43">		System.out.println(&quot;consumerKey &quot;+consumerKey+&quot; consumerSecret &quot;+consumerSecret+&quot; accessToken &quot;+accessToken+&quot; accessTokenSecret &quot;+accessTokenSecret);		</span>
+<span class="nc" id="L44">		ConfigurationBuilder cb = new ConfigurationBuilder();</span>
+<span class="nc" id="L45">		cb.setDebugEnabled(true)</span>
+<span class="nc" id="L46">		        .setOAuthConsumerKey(consumerKey)</span>
+<span class="nc" id="L47">				.setOAuthConsumerSecret(consumerSecret)</span>
+<span class="nc" id="L48">				.setOAuthAccessToken(accessToken)</span>
+<span class="nc" id="L49">				.setOAuthAccessTokenSecret(accessTokenSecret);</span>
+<span class="nc" id="L50">		TwitterFactory tf = new TwitterFactory(cb.build());</span>
+<span class="nc" id="L51">		System.out.println(&quot;Twitter Factory &quot;+tf);</span>
+<span class="nc" id="L52">		Twitter twitter = tf.getInstance();</span>
+<span class="nc" id="L53">		System.out.println(&quot;Twitter object &quot;+twitter);</span>
+<span class="nc" id="L54">		Map&lt;String, String&gt; trendDetails = new HashMap&lt;String, String&gt;();</span>
+		try {
+<span class="nc" id="L56">			Trends trends = twitter.getPlaceTrends(Integer.parseInt(trendPlace));</span>
+<span class="nc" id="L57">			System.out.println(&quot;After API call&quot;);</span>
+<span class="nc" id="L58">			int count = 0;</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">			for (Trend trend : trends.getTrends()) {</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">				if (count &lt; Integer.parseInt(trendCount)) {</span>
+<span class="nc" id="L61">					trendDetails.put(trend.getName(), trend.getURL());</span>
+<span class="nc" id="L62">					count++;</span>
+				}
+			}
+<span class="nc" id="L65">		} catch (TwitterException e) {</span>
+<span class="nc" id="L66">			trendDetails.put(&quot;test&quot;, &quot;MyTweet&quot;);</span>
+            //trendDetails.put(&quot;Twitter Exception&quot;, e.getMessage());
+<span class="nc" id="L68">			System.out.println(&quot;Twitter exception &quot;+e.getMessage());</span>
+
+<span class="nc" id="L70">		}catch (Exception e) {</span>
+<span class="nc" id="L71">			trendDetails.put(&quot;test&quot;, &quot;MyTweet&quot;);</span>
+<span class="nc" id="L72">            System.out.println(&quot;Exception &quot;+e.getMessage());</span>
+<span class="nc" id="L73">		}</span>
+<span class="nc" id="L74">		return trendDetails;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

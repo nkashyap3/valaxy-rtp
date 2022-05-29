@@ -1,0 +1,54 @@
+# Created at 2022-05-29T13:25:47.304
+Exception in thread "main" java.lang.reflect.InvocationTargetException
+
+# Created at 2022-05-29T13:25:47.306
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:119)
+
+# Created at 2022-05-29T13:25:47.306
+	at java.base/java.lang.reflect.Method.invoke(Method.java:577)
+
+# Created at 2022-05-29T13:25:47.306
+	at java.instrument/sun.instrument.InstrumentationImpl.loadClassAndStartAgent(InstrumentationImpl.java:491)
+
+# Created at 2022-05-29T13:25:47.306
+	at java.instrument/sun.instrument.InstrumentationImpl.loadClassAndCallPremain(InstrumentationImpl.java:503)
+
+# Created at 2022-05-29T13:25:47.306
+Caused by: java.lang.RuntimeException: Class java/lang/UnknownError could not be instrumented.
+
+# Created at 2022-05-29T13:25:47.306
+	at org.jacoco.agent.rt.internal_28bab1d.core.runtime.ModifiedSystemClassRuntime.createFor(ModifiedSystemClassRuntime.java:140)
+
+# Created at 2022-05-29T13:25:47.307
+	at org.jacoco.agent.rt.internal_28bab1d.core.runtime.ModifiedSystemClassRuntime.createFor(ModifiedSystemClassRuntime.java:101)
+
+# Created at 2022-05-29T13:25:47.307
+	at org.jacoco.agent.rt.internal_28bab1d.PreMain.createRuntime(PreMain.java:55)
+
+# Created at 2022-05-29T13:25:47.307
+	at org.jacoco.agent.rt.internal_28bab1d.PreMain.premain(PreMain.java:47)
+
+# Created at 2022-05-29T13:25:47.307
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+
+# Created at 2022-05-29T13:25:47.307
+	... 3 more
+
+# Created at 2022-05-29T13:25:47.308
+Caused by: java.lang.NoSuchFieldException: $jacocoAccess
+
+# Created at 2022-05-29T13:25:47.308
+	at java.base/java.lang.Class.getField(Class.java:2149)
+
+# Created at 2022-05-29T13:25:47.308
+	at org.jacoco.agent.rt.internal_28bab1d.core.runtime.ModifiedSystemClassRuntime.createFor(ModifiedSystemClassRuntime.java:138)
+
+# Created at 2022-05-29T13:25:47.308
+	... 7 more
+
+# Created at 2022-05-29T13:25:47.309
+*** java.lang.instrument ASSERTION FAILED ***: "result" with message agent load/premain call failed at src/java.instrument/share/native/libinstrument/JPLISAgent.c line: 422
+
+# Created at 2022-05-29T13:25:47.424
+/bin/sh: line 1: 44930 Abort trap: 6           /usr/local/Cellar/openjdk/18.0.1/libexec/openjdk.jdk/Contents/Home/bin/java '-javaagent:/Users/niteshkashyap/.m2/repository/org/jacoco/org.jacoco.agent/0.8.2/org.jacoco.agent-0.8.2-runtime.jar=destfile=/Users/niteshkashyap/Documents/NITESH Documents/Valaxy-project/valaxy-rtp/target/jacoco.exec' -Xmx2048m -jar '/Users/niteshkashyap/Documents/NITESH Documents/Valaxy-project/valaxy-rtp/target/surefire/surefirebooter12939921684918174187.jar' '/Users/niteshkashyap/Documents/NITESH Documents/Valaxy-project/valaxy-rtp/target/surefire' 2022-05-29T13-25-46_912-jvmRun1 surefire5335653858415581325tmp surefire_015056641215399706893tmp
+
