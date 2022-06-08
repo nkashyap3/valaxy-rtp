@@ -1,4 +1,4 @@
-def imageName = 'nkashyap.jfrog.io/artifactory/default-docker-local/valaxy-rtp'
+def imageName = 'nkashyap.jfrog.io/default-docker-local/valaxy-rtp'
 def registry  = 'https://nkashyap.jfrog.io/artifactory'
 def version   = '1.0.3'
 def app
