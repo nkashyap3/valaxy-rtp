@@ -88,5 +88,17 @@ pipeline {
         }         
       }// JAR PUBLISH STAGE ENDS
 
+        stage("Docker Publish") {
+          steps {
+            script {
+               echo '<--------------- Docker Publish Started --------------->'
+               docker.withRegistry(registry, 'artifactorycredentialid'){
+                 docker.image(imageName).push(version)
+               }
+               echo '<--------------- Docker Publish Ends --------------->'
+            }
+          }
+        }  //Docker Publish stage ends
+
     }
  }
