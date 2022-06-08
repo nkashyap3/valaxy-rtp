@@ -1,5 +1,5 @@
-def imageName = 'nkashyapjfrog.io/default-docker-local/valaxy-rtp'
-def registry  = 'https://nkashyap.jfrog.io'
+def imageName = 'nkashyap.jfrog.io/artifactory/default-docker-local/valaxy-rtp'
+def registry  = 'https://nkashyap.jfrog.io/artifactory'
 def version   = '1.0.3'
 def app
 pipeline {
@@ -68,7 +68,7 @@ pipeline {
            steps{
              script{
                echo '-----JAR-Publish-Started-----'
-               def server = Artifactory.newServer url:registry+"/artifactory" ,  credentialsId:"artifactcredid"
+               def server = Artifactory.newServer url:registry ,  credentialsId:"artifactcredid"
                 def properties = "buildid=${env.BUILD_ID},commitid=${GIT_COMMIT}";
                 def uploadSpec = """{
                       "files": [
@@ -93,7 +93,7 @@ pipeline {
           steps {
             script {
                echo '<--------------- Docker Publish Started --------------->'
-               docker.withRegistry(registry, 'artifactcredid'){
+               docker.withRegistry(registry , 'artifactcredid'){
                  docker.image(imageName).push(version)
                }
                echo '<--------------- Docker Publish Ends --------------->'
