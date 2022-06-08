@@ -1,5 +1,6 @@
 def imageName = 'nkashyapjfrog.io/default-docker-local/valaxy-rtp'
 def registry  = 'https://nkashyap.jfrog.io'
+def version   = '1.0.3'
 def app
 pipeline {
     agent {
